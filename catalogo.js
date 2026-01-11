@@ -78,6 +78,48 @@ if (searchInput) {
     });
 }
 
+// --- FUNCIÓN EXPORTAR ---
+const exportBtn = document.getElementById('export-btn');
+if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+        const dataStr = JSON.stringify(tiles, null, 2);
+        const blob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'baldosas.json'; // Se descarga con el nombre que GitHub necesita
+        link.click();
+        
+        alert("Archivo 'baldosas.json' descargado. Súbelo a tu repo de GitHub para actualizar a todos los usuarios.");
+    });
+}
+
+// --- FUNCIÓN IMPORTAR ---
+const importInput = document.getElementById('import-input');
+if (importInput) {
+    importInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const importedTiles = JSON.parse(event.target.result);
+                if (Array.isArray(importedTiles)) {
+                    tiles = importedTiles;
+                    localStorage.setItem('myTiles', JSON.stringify(tiles));
+                    renderTiles();
+                    alert("¡Catálogo importado correctamente!");
+                }
+            } catch (err) {
+                alert("Error: El archivo no es un JSON válido.");
+            }
+        };
+        reader.readAsText(file);
+    });
+}
+
 // 6. FUNCIONES GLOBALES
 window.deleteTile = (index) => {
     if (confirm("¿Eliminar esta baldosa?")) {
