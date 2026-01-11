@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Baldosas</title>
+    <link rel="stylesheet" href="Catalogo.css">
+</head>
+<body>
+    <header>
+        <h1>Panel de Administración</h1>
+        <nav><a href="index.html" class="nav-link">⬅ Volver al Catálogo</a></nav>
+    </header>
+
+    <main id="admin-content" style="display:none;">
+        <section class="form-container">
+            <h2>Añadir Nueva Baldosa</h2>
+            <form id="tile-form">
+                <input type="text" id="name" placeholder="Nombre" required>
+                <input type="text" id="material" placeholder="Material" required>
+                <label>Foto de la baldosa:</label>
+                <input type="file" id="image-input" accept="image/*" required>
+                <button type="submit">Guardar en Inventario</button>
+            </form>
+        </section>
+
+        <section class="backup-controls">
+            <button onclick="resetToDefault()" class="btn-warning">⚠️ Restablecer Catálogo Original</button>
+        </section>
+
+        <div id="catalog-container" class="grid-container">
+            </div>
+    </main>
+
+    <script src="catalogo.js"></script>
+    <script>
+        // Bloqueo de seguridad simple
+        (function() {
+            const passCorrecta = "1234"; // CAMBIA TU CLAVE AQUÍ
+            if (sessionStorage.getItem('isAdmin') !== 'true') {
+                const intento = prompt("Clave de administrador:");
+                if (intento === passCorrecta) {
+                    sessionStorage.setItem('isAdmin', 'true');
+                    document.getElementById('admin-content').style.display = 'block';
+                    renderTiles();
+                } else {
+                    alert("Acceso denegado");
+                    window.location.href = "index.html";
+                }
+            } else {
+                document.getElementById('admin-content').style.display = 'block';
+            }
+        })();
+    </script>
+</body>
+</html>
