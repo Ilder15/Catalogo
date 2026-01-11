@@ -16,3 +16,34 @@ button { width: 100%; padding: 10px; background: var(--accent); color: white; bo
 .card-info { padding: 15px; }
 .delete-btn { background: var(--danger); margin-top: 10px; }
 .btn-warning { background: #f39c12; margin: 20px auto; display: block; width: fit-content; padding: 10px 20px; }
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.secondary-btn, .custom-file-upload {
+    background: #546e7a;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border: none;
+    transition: background 0.3s;
+}
+
+.secondary-btn:hover, .custom-file-upload:hover {
+    background: #37474f;
+}
+
+.btn-warning {
+    background: #f39c12;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
